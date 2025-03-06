@@ -1,0 +1,42 @@
+---Долбня
+---Вивести студентів, які купили усі сорти певної ціни N
+students WhoBoughtAll :: Price -> [(Name, Year)] 
+students WhoBoughtAll n = 
+[(name, year) | (sid, name, year) <- students, boughtAllSorts n sid] 
+sortsByPrice:: Price -> [SortID] 
+sortsByPrice n = [sid | (sid,_, price) <- sorts, price == n] 
+purchasesByStudent :: StudentID -> [SortID] 
+purchasesByStudent sid = [sortID | (SID, sortID) <- purchases, sID == sid] 
+boughtAllSorts:: Price -> StudentID -> Bool 
+boughtAllSorts n sid = 
+let neededSorts = sortsByPrice n 
+studentSorts = purchasesByStudent sid 
+in all (elem studentSorts) neededSorts
+
+---Знаходить студентів, які купили всі сорти певної ціни N і тільки їх
+students WhoBoughtOnlyAll:: Price -> [(Name, Year)] 
+students WhoBoughtOnlyAll n = 
+[(name, year) | (sid, name, year) <- students, boughtOnlyAllSorts n sid] 
+sortsByPrice :: Price -> [SortID] 
+sortsByPrice n = [sid | (sid,_, price) <- sorts, price == n] 
+purchasesByStudent :: StudentID -> [SortID] 
+purchasesByStudent sid = [sortID | (SID, sortID) <- purchases, sID == sid] 
+boughtOnly AllSorts:: Price -> StudentID -> Bool 
+boughtOnly AllSorts n sid = 
+let neededSorts = sort (sortsByPrice n) 
+studentSorts = sort (purchasesByStudent sid) 
+in neededSorts == studentSorts
+
+---Знаходить студентів, які купили сорти, дешевші або рівні N.
+students WhoBoughtCheaper :: Price -> [(Name, Year)] 
+students WhoBoughtCheaper n = 
+[(name, year) (sid, name, year) - students, boughtAllCheaperSorts n sid] 
+sorts ByMaxPrice:: Price -> [SortID] 
+sorts ByMaxPrice n = [sid | (sid,_, price) <- sorts, price =< n] 
+purchasesByStudent :: StudentID -> [SortID] 
+purchasesByStudent sid = [sortID | (SID, sortID) <- purchases, sID == sid] 
+boughtAllCheaperSorts :: Price > StudentID -> Bool 
+boughtAllCheaperSorts n sid = 
+let neededSorts = sort (sortsByMaxPrice n) 
+studentSorts = sort (purchasesByStudent sid) 
+in all ('elem' studentSorts) neededSorts
