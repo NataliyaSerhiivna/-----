@@ -11,7 +11,7 @@ boughtAllSorts:: Price -> StudentID -> Bool
 boughtAllSorts n sid = 
 let neededSorts = sortsByPrice n 
 studentSorts = purchasesByStudent sid 
-in all (elem studentSorts) neededSorts
+in all ('elem' studentSorts) neededSorts
 
 ---Знаходить студентів, які купили всі сорти певної ціни N і тільки їх
 students WhoBoughtOnlyAll:: Price -> [(Name, Year)] 
